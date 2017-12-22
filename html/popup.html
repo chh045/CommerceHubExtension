@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+        <title>CommerceHub Extension</title>
+        <script type="text/javascript" src="../lib/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="../lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/popup.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../css/popup.css">
+    </head>
+
+    <body>
+    <div class="container">
+    	<h3 align="center" id="plug-in-header"> <img src="../src/CommerceHub_Logo.png" width="220"></h3>
+        <div class="version-2-btn-group" >
+            <p id="popup-info1" hidden></p>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#file-modal" data-type="upload">
+                Upload TXT
+                <i class="fa fa-upload" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#file-modal" data-type="dimension">
+                Check Dimension
+            </button>
+            <button id="inject-config" class="btn btn-info" disabled="disabled">Plug-in Portal</button>
+            <button id="version-1-btn" class="btn btn-info">More Features</button>
+            <br>
+        </div>
+        <hr class="version-1-btn-group">
+        <div class="version-1-btn-group">
+            <button id="check-UPS" class="btn btn-info" disabled="disabled">Get UPSs</button>
+            <button id="download-UPS" class="btn btn-info" disabled="disabled">Download UPS</button>
+        	<button id="check-LTL" class="btn btn-info" disabled="disabled">Get LTLs</button>
+        	<button id="download-LTL" class="btn btn-info" disabled="disabled">Download LTL</button>
+        </div>
+        <hr>
+        <p id="copyright">Copyright <i class="fa fa-copyright" aria-hidden="true"></i> Acme Furniture 2017</p>
+
+        <!-- Progress bar modal -->
+        <div class="modal js-loading-bar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="progress progress-popup">
+                            <div class="progress-bar"></div>
+                        </div>
+                        Processing...
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <!-- Upload modal -->
+        <div class="modal fade" id="file-modal" tabindex="-1" role="dialog" aria-labelledby="file-modal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="file-modal-label"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary">
+                                    Browse&hellip; <input type="file" id="fileinput" style="display: none;" multiple>
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" id="file-modal-submit" class="btn btn-primary modal-btn" data-dismiss="modal" disabled="disabled">
+                            Upload
+                        </button>
+                        <button type="button" id="file-modal-dimension" class="btn btn-primary modal-btn" data-dismiss="modal" disabled="disabled">
+                            Check
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+    </div>
+  </body>
+</html>

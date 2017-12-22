@@ -1,0 +1,30 @@
+{
+	"manifest_version": 2,
+
+	"name": "CommerceHub Extension",
+	"description": "Make the CommerceHub tracking update easier than eating piazza.",
+	"version": "0.1",
+	"content_scripts": 
+	[
+		{
+			"matches" : ["*://*.dsm.commercehub.com/*"],
+			"js":[
+				"lib/jquery-3.2.1.min.js",
+				"js/content.js"
+			]
+			// ,
+			// "css": [
+			// 	"css/content.css"
+			// ]
+		}
+	],
+	"browser_action": 
+	{
+		"default_icon": "src/icon.png",
+		"default_popup": "html/popup.html"
+	},
+	"permissions": [
+		"tabs", 
+		"<all_urls>"
+	]
+}
