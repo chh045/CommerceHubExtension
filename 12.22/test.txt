@@ -1,0 +1,30 @@
+
+12/22/2017 - 12/22/2017    259239184    Courtesy Shipped to Detail For Walmart    CAFE3108    Page: 1
+
+TRACKING #           P.O. #          CUSTOMER REFERENCE   RECIPIENT CONTACT    
+-------------------- --------------- -------------------- --------------------          
+
+7067175668	     3777255454393	96069ST              Charmanie  Davis     
+
+12/18/2017 - 12/18/2017    259239184    Courtesy Shipped to Detail For Walmart    CAFE3108   Page: 18
+
+422534647609         4773535102041   92470BASE            Sheri  Eisert        
+422534647610         4773535102041   92471GL              Sheri  Eisert        
+422534647620         1777225097270   59551                Andrea  Shaw         
+422534647631         2581055904089   71160                PICKUP AT STORE      
+422534647642         2581055905716   30463SI              Mary  Cox            
+422534647653         2581055905716   30463SI              Mary  Cox            
+422534647664         1777225103779   02738N               Judith  Miller       
+422534647675         1777225063074   82804                LENNIE GOMEZ         
+422534647686         4773535102731   59218                DAKOTA ELKINS        
+
+GRAND TOTALS
+TOTAL WEIGHT(OF LBS)                      45355.00
+TOTAL WEIGHT(OF KGS)                          0.00
+CSY  DECL VAL SCHG                            0.00
+COURTESY DISCOUNT                             0.00
+COURTESY NET CHARGE                           0.00
+COURTESY SPECIAL FEES                         0.00
+CSY FUEL SURCHARGE                            0.00
+PACKAGE COUNT                                  908
+

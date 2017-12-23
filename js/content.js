@@ -1,6 +1,6 @@
 $(function(){
    
-    function encryptKeys(t){
+    function encryption(t){
         var poNum, encrypted_key, encryptedKeys = {}, tds = {};
         var evenrow = $('tr.evenrow'), oddrow = $('tr.oddrow');
         for(row in evenrow){
@@ -27,7 +27,7 @@ $(function(){
                 }
             }
         }
-        return {encryptedKeys: encryptedKeys, tds:tds};
+        return {epo:encryptedKeys, tds:tds};
     }
 
     function makePostForm(_document, _orderID, _itemIDs, _trNums){
@@ -49,10 +49,7 @@ $(function(){
 
             postForm[trackingnumber] = _trNums[i] || _trNums[0];
             postForm[shippingmethod] = _document.find('select[name="'+boxBase+'.shippingmethod'+'"]').val();
-            postForm[ssccid] = $(_document.find('select[name="'+boxBase+'.ssccid'+'"]').find('option')[i+1]).val();
-            console.log();
-            console.log(_document.find('select[name="'+boxBase+'.ssccid'+'"]').find('option')[i+1]);
-            console.log($(_document.find('select[name="'+boxBase+'.ssccid'+'"]').find('option')[i+1]).val());
+            postForm[ssccid] = $(_document.find('select[name="'+boxBase+'.ssccid'+'"]').find('option')[i+1]).val() || "";
 
             for(var j = 0; j < _itemIDs.length; j++){
                 var itemBase = boxBase+'.item('+_itemIDs[j]+')';
@@ -76,22 +73,26 @@ $(function(){
     }
     function getItemIDs(_document){
         var itemIDs = [];
+        var orderid;
         _document.find('input').each(function(){
             if(jQuery(this).attr('name') && jQuery(this).attr('name').match(/order.*item.*id/)){
-
-                var item_id = jQuery(this).attr('name').replace(/.*item\((\d+).*/, '$1');
-                // console.log(item_id);
-
-                if(itemIDs.indexOf(item_id)===-1){
-                    itemIDs.push(item_id);
+                var ord_item = jQuery(this).attr('name').replace(/.*order\((\d+).*item\((\d+).*/, '$1,$2').split(',');
+                if(itemIDs.indexOf(ord_item[1])===-1){
+                    itemIDs.push(ord_item[1]);
                 }
-                // console.log(jQuery(this).val());
+                if(!orderid){
+                    orderid = ord_item[0];
+                }
             }
         });
-        return itemIDs;
+        return {po:orderid, items:itemIDs};
     }
 
-    function closeTrackings(epo){
+    function closeTrackings(encrypted_info){
+        var epo = encrypted_info.epo;
+        var tds = encrypted_info.tds;
+        console.log(epo);
+        console.log(tds);
         for(po in epo){
             jQuery.ajax({
                 url:"/dsm/gotoOrderRealmForm.do",
@@ -101,11 +102,23 @@ $(function(){
                     Go: "Go"
                 },
                 success:function(data, status){
-                    console.log(status);
+                    // console.log(status);
                     var _document = jQuery(jQuery.parseHTML(data));
-                    var itemIDs = getItemIDs(_document);
-                    var postForm = makePostForm(_document, po, getItemIDs(_document), epo[po]);
+                    var _o = getItemIDs(_document);
+                    // var itemIDs = getItemIDs(_document);
+                    var postForm = makePostForm(_document, _o.po, _o.items, epo[_o.po]);
                     console.log(postForm);
+                    $(tds[_o.po]).append('<span><img src="chrome-extension://ielbipaagjlhndhcknfipcgbekhjkjga/src/Check_icon.png" width="15px"></span>');
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "/dsm/handleOrderRealmFormSubmission.do",
+                        data: postForm,
+                        success:function(data, status){
+                            // console.log(data);
+                            console.log(data, status);
+                        }
+                    });
                 }
             });
         }
@@ -122,11 +135,14 @@ $(function(){
                 data    = request.data;
             if(path === "content"){
                 if(type === "close-tracking"){
-                    console.log('data.trackings:', data.trackings);
-                    console.log('data.trackings.size:', Object.keys(data.trackings).length);
-                    console.log('encrypted.trackings:', encryptKeys(data.trackings));
+                    // console.log('data.trackings:', data.trackings);
+                    // console.log('data.trackings.size:', Object.keys(data.trackings).length);
+                    var en = encryption(data.trackings);
+                    var epo = en.epo;
+                    var tds = en.tds;
+                    console.log('encrypted.trackings:', en);
                     // console.log('encrypted.trackings.size:', Object.keys(encryptKeys(data.trackings)).length)
-                    closeTrackings(encryptKeys(data.trackings));
+                    closeTrackings(en);
                     sendResponse({success: true});
                 }
             }
